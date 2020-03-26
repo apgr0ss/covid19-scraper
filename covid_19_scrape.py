@@ -69,6 +69,7 @@ for state,counties in zip(state_elements,county_elements):
     # Perform basic string operations to pull out the clean data
     state_data = state_data.split('\n')
     state_data = [s.replace('%','') for s in state_data]
+    state_data = [s.replace(',','') for s in state_data]
     state_data[0] = state_data[0] + ' (State-level)'
 
     # Convert numbers to floats
@@ -90,7 +91,7 @@ for state,counties in zip(state_elements,county_elements):
     county_data = counties.get_attribute('innerText')
     county_data = county_data.split('\n')
     county_data = [s.replace('%','') for s in county_data]
-
+    county_data = [s.replace(',','') for s in county_data]
     # Convert numbers to floats
     # Remove the +{number}'s for the county data
     i = 0
