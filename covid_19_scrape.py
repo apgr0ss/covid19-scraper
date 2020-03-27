@@ -43,15 +43,13 @@ driver.get("https://coronavirus.1point3acres.com")
 # I figured out the best way to do this is to expand the list of states
 # starting at the bottom and working up.
 us_elem = driver.find_elements_by_class_name(class_name + '.row')[0]
-
-elements = driver.find_elements_by_class_name(class_name + '.stat.row')
-elements = [us_elem] + elements
+elements = driver.find_elements_by_css_selector('div.' + class_name + '.stat.row')
 
 
-driver.execute_script("arguments[0].scrollIntoView(true);", elements[55])
+driver.execute_script("arguments[0].scrollIntoView(true);", elements[0])
 
 # Iterate through the elements (states) and click to expand each
-for i in range(len(elements)-2,-1,-1):
+for i in range(len(elements)-3,-1,-1):
     driver.execute_script("arguments[0].scrollIntoView(true);", elements[i]);
     elements[i+2].click()
 
