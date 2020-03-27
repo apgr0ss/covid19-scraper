@@ -16,4 +16,4 @@ This program:
    variable
 3. The prefix of the class names which contain the county and state data seem
    to change occasionally. If this happens (i.e, when the code breaks), inspect
-   the webpage again and rename the class using the class_name variable below
+   the webpage again and rename the class using the class_name variable
