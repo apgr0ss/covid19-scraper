@@ -24,11 +24,11 @@ Notes:
 """
 
 # Defines the prefix of the class name -- it changes occasionally
-class_name = "jsx-564222390"
+class_name = "jsx-742282485"
 
 # Set options to hide browser window
 chrome_options = Options()
-chrome_options.add_argument("--headless")
+#chrome_options.add_argument("--headless")
 
 # Instantiate the driver -- the object that interfaces with Chrome
 driver = webdriver.Chrome(options=chrome_options)
@@ -47,10 +47,13 @@ us_elem = driver.find_elements_by_class_name(class_name + '.row')[0]
 elements = driver.find_elements_by_class_name(class_name + '.stat.row')
 elements = [us_elem] + elements
 
+
+driver.execute_script("arguments[0].scrollIntoView(true);", elements[55])
+
 # Iterate through the elements (states) and click to expand each
-for i in range (1, len(elements)):
-    driver.execute_script("arguments[0].scrollIntoView(true);", elements[(-1*i)-1]);
-    elements[-1*i].click()
+for i in range(len(elements)-2,-1,-1):
+    driver.execute_script("arguments[0].scrollIntoView(true);", elements[i]);
+    elements[i+2].click()
 
 # Pull elements which contain the state and county data
 state_elements = driver.find_elements_by_class_name(class_name + '.stat.row.expand')
