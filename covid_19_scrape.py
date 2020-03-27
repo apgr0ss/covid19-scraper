@@ -2,6 +2,7 @@ import numpy as np
 import pandas as pd
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.touch_actions import TouchActions
 import os
 
 """
@@ -42,16 +43,21 @@ driver.get("https://coronavirus.1point3acres.com")
 # click to expand a menu, the clickable item must be on the screen.
 # I figured out the best way to do this is to expand the list of states
 # starting at the bottom and working up.
-us_elem = driver.find_elements_by_class_name(class_name + '.row')[0]
+us_elem = driver.find_elements_by_css_selector('div.' + class_name + '.row')[0]
 elements = driver.find_elements_by_css_selector('div.' + class_name + '.stat.row')
+elements = [us_elem] + elements
 
-
-driver.execute_script("arguments[0].scrollIntoView(true);", elements[0])
-
+driver.execute_script("arguments[0].scrollIntoView(true);", elements[1])
+elements[1].click()
+len(elements)
 # Iterate through the elements (states) and click to expand each
 for i in range(len(elements)-3,-1,-1):
     driver.execute_script("arguments[0].scrollIntoView(true);", elements[i]);
+    touchAction = TouchActions(driver)
+    touchAction.scroll_from_element(on_element=elements[i],xoffset=0,yoffset=-1)
+    print(i+2)
     elements[i+2].click()
+touchAction = TouchActions(driver)
 
 # Pull elements which contain the state and county data
 state_elements = driver.find_elements_by_class_name(class_name + '.stat.row.expand')
